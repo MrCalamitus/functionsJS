@@ -4,7 +4,7 @@
  * and open the template in the editor.
  * 
  * load.init(options)
- * @object:opcional options = {img:{src:"RUTA DE LA IMAGEN A MOSTRAR",w:"ANCHO DE LA IMAGEN",h="ALTO DE LA IMAGEN"},timeOut:tiempo en que la imagen se va};
+ * @object:opcional options = {img:{src:"RUTA DE LA IMAGEN A MOSTRAR",w:"ANCHO DE LA IMAGEN",h="ALTO DE LA IMAGEN"},innerTo:"ID_ELEMENTO"};
  * 
  */
 
@@ -54,10 +54,18 @@ load = {
             img.src = options.img.src;
             img.width = options.img.w == undefined ? 100 : options.img.w;
             img.height = options.img.h == undefined ? 100 : options.img.h;
-            wv = window.innerWidth;
-            hv = window.innerHeight;
+            var wv = window.innerWidth;
+            var hv = window.innerHeight;
             div.appendChild(img);
-            document.body.appendChild(div);
+            if (options.innerTo != undefined) {
+                var content = document.getElementById(options.innerTo);
+                content.appendChild(div);
+                wv = content.offsetWidth;
+                hv = content.offsetHeight;
+            } else {
+                document.body.appendChild(div);
+            }
+
             img.style.marginLeft = ((wv - img.width) / 2) + "px";
             img.style.marginTop = ((hv - img.height) / 2) + "px";
         }

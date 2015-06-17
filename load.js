@@ -4,7 +4,7 @@
  * and open the template in the editor.
  * 
  * load.init(options)
- * @object:opcional options = {img:{src:"RUTA DE LA IMAGEN A MOSTRAR",w:"ANCHO DE LA IMAGEN",h="ALTO DE LA IMAGEN"},innerTo:"ID_ELEMENTO"};
+ * @object:opcional options = {img:{src:"RUTA DE LA IMAGEN A MOSTRAR",w:"ANCHO DE LA IMAGEN",h="ALTO DE LA IMAGEN"}};
  * 
  */
 
@@ -14,26 +14,24 @@ load = {
 
         if (options == undefined) {
             options = new Object();
-            options.timeOut = 5000;
             options.img = new Object();
-        }
-        if (options.timeOut == undefined) {
-            options.timeOut = 5000;
         }
         if (options.img == undefined) {
             options.img = new Object();
         }
 
-        timeLaod = setInterval(function () {
-            clearInterval(5000);
-            if (((new Date().getTime()) - time) > options.timeOut) {
-                load.remove();
-                clearInterval(timeLaod);
-                if (options.timeOutFunction != undefined) {
-                    CallBackFunction();
+        if (options.timeOut != undefined) {
+            timeLaod = setInterval(function () {
+                clearInterval(5000);
+                if (((new Date().getTime()) - time) > options.timeOut) {
+                    load.remove();
+                    clearInterval(timeLaod);
+                    if (options.timeOutFunction != undefined) {
+                        CallBackFunction();
+                    }
                 }
-            }
-        }, 1000);
+            }, 1000);
+        }
 
         if (!(document.getElementById('loadGlobal') != null && document.getElementById('loadGlobal') != undefined)) {
             div = document.createElement('div');
